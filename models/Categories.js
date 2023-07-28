@@ -6,7 +6,7 @@ mongoose.plugin(URLSlugs);
 const categoriesScheme = mongoose.Schema({
   name: {
     type: String,
-    require: [true, 'Nama kategori harus diiisi']
+    require: [true, 'Nama kategori harus diisi']
   },
   slug: {
     type: String,

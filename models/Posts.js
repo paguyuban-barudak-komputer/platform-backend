@@ -6,29 +6,24 @@ mongoose.plugin(URLSlugs);
 const postsScheme = new mongoose.Schema({
   thumbnail: {
     type: String,
-    required: true,
     require: [true, 'Thumbnail harus diiisi']
   },
   title: {
     type: String,
-    required: true,
     require: [true, 'Judul harus diiisi']
   },
   content: {
     type: String,
-    required: true,
     require: [true, 'Konten harus diiisi']
   },
   status: {
     type: String,
-    required: true,
     enum: ['publish','draft'],
     default: 'publish',
     require: [true, 'Status harus diiisi']
   },
   writer: {
     type: String,
-    required: true,
     require: [true, 'Penulis harus diiisi']
   },
   categoryId: {

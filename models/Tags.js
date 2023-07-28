@@ -6,7 +6,7 @@ mongoose.plugin(URLSlugs);
 const tagsSchema = mongoose.Schema({
   name: {
     type: String,
-    require: [true, 'Nama tag harus diiisi']
+    require: [true, 'Nama tag harus diisi']
   },
   slug: {
     type: String,

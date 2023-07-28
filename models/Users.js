@@ -3,18 +3,15 @@ const mongoose = require("mongoose");
 const usersScheme = mongoose.Schema({
   name: {
     type: String,
-    required: true,
     require: [true, 'Nama harus diisi']
   },
   username: {
     type: String,
-    required: true,
     unique: true,
     require: [true, 'Username harus diisi']
   },
   password: {
     type: String,
-    required: true,
     require: [true, 'Kata sandi harus diisi']
   },
   role: {
