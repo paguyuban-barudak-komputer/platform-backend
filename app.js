@@ -16,6 +16,7 @@ const categoriesRouter = require('./routes/categories');
 const tagsRouter = require('./routes/tags');
 const postsRouter = require('./routes/posts');
 const structuralsRouter = require('./routes/structurals');
+const memberPositionsRouter = require('./routes/member-positions');
 
 var app = express();
 
@@ -51,6 +52,7 @@ app.use('/tags', tagsRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/structurals', structuralsRouter);
+app.use('/member-positions', memberPositionsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
