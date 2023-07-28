@@ -35,3 +35,6 @@ npm-debug.log
 
 # VScode
 .vscode
+
+# Assets
+public/thumbnails/*
