@@ -18,6 +18,7 @@ const postsRouter = require('./routes/posts');
 const structuralsRouter = require('./routes/structurals');
 const memberPositionsRouter = require('./routes/member-positions');
 const periodeRouter = require('./routes/periode');
+const membersRouter = require('./routes/members');
 
 var app = express();
 
@@ -55,6 +56,7 @@ app.use('/posts', postsRouter);
 app.use('/structurals', structuralsRouter);
 app.use('/member-positions', memberPositionsRouter);
 app.use('/periode', periodeRouter);
+app.use('/members', membersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -38,3 +38,4 @@ npm-debug.log
 
 # Assets
 public/thumbnails/*
+public/members/*

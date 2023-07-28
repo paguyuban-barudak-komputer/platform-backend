@@ -125,66 +125,66 @@ module.exports = {
         const { title, content, tags, category, writer } = req.body;
     
         if(req.file){
-        let tmp_path= req.file.path;
-        let originaExt = req.file.originalname.split('.')[req.file.originalname.split('.').length - 1];
-        let filename = req.file.filename + '.' + originaExt;
-        let target_path = path.resolve(config.rootPath, `public/thumbnails/${filename}`)
+          let tmp_path= req.file.path;
+          let originaExt = req.file.originalname.split('.')[req.file.originalname.split('.').length - 1];
+          let filename = req.file.filename + '.' + originaExt;
+          let target_path = path.resolve(config.rootPath, `public/thumbnails/${filename}`)
 
-        const src = fs.createReadStream(tmp_path)
-        const dest = fs.createWriteStream(target_path)
+          const src = fs.createReadStream(tmp_path)
+          const dest = fs.createWriteStream(target_path)
 
-        src.pipe(dest)
+          src.pipe(dest)
 
-        src.on('end', async ()=>{
-        try {
+          src.on('end', async ()=>{
+          try {
 
-            const post = await Posts.findOne({_id: id})
+              const post = await Posts.findOne({_id: id})
 
-            let currentImage = `${config.rootPath}/public/thumbnails/${post.thumbnail}`;
-            if(fs.existsSync(currentImage)){
-              fs.unlinkSync(currentImage)
-            }
+              let currentImage = `${config.rootPath}/public/thumbnails/${post.thumbnail}`;
+              if(fs.existsSync(currentImage)){
+                fs.unlinkSync(currentImage)
+              }
 
-            await Posts.findOneAndUpdate({
-                _id : id
-              },{
-                title,
-                content,
-                categoryId: category,
-                tagId: tags,
-                writer,
-                userId: "64c395105c431d8409248e9c",
-                thumbnail: filename
-              })
+              await Posts.findOneAndUpdate({
+                  _id : id
+                },{
+                  title,
+                  content,
+                  categoryId: category,
+                  tagId: tags,
+                  writer,
+                  userId: "64c395105c431d8409248e9c",
+                  thumbnail: filename
+                })
 
+              req.flash('alertMessage', "Berhasil mengedit artikel")
+              req.flash('alertStatus', "success")
+      
+              res.redirect('/posts')
+              
+          } catch (err) {
+              req.flash('alertMessage', `${err.message}`)
+              req.flash('alertStatus', 'danger')
+              res.redirect('/posts')
+          }
+          })
+      } else {
+          await Posts.findOneAndUpdate({
+              _id : id
+            },{
+              title,
+              content,
+              categoryId: category,
+              tagId: tags,
+              writer,
+              userId: "64c395105c431d8409248e9c"
+            })
+            
             req.flash('alertMessage', "Berhasil mengedit artikel")
             req.flash('alertStatus', "success")
-    
+      
             res.redirect('/posts')
-            
-        } catch (err) {
-            req.flash('alertMessage', `${err.message}`)
-            req.flash('alertStatus', 'danger')
-            res.redirect('/posts')
-        }
-        })
-    } else {
-        await Posts.findOneAndUpdate({
-            _id : id
-          },{
-            title,
-            content,
-            categoryId: category,
-            tagId: tags,
-            writer,
-            userId: "64c395105c431d8409248e9c"
-          })
-          
-          req.flash('alertMessage', "Berhasil mengedit artikel")
-          req.flash('alertStatus', "success")
-    
-          res.redirect('/posts')
-    }
+      }
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
       req.flash("alertStatus", "danger");
@@ -205,7 +205,6 @@ module.exports = {
       if(fs.existsSync(currentImage)){
         fs.unlinkSync(currentImage)
       }
-
 
       req.flash("alertMessage", "Berhasil menghapus artikel");
       req.flash("alertStatus", "success");
