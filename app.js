@@ -12,6 +12,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 const dashboardRouter = require('./routes/dashboard');
+const categoriesRouter = require('./routes/categories');
+const tagsRouter = require('./routes/tags');
 
 var app = express();
 
@@ -42,6 +44,8 @@ app.set('view engine', 'ejs')
 
 app.use('/', loginRouter);
 app.use('/dashboard', dashboardRouter);
+app.use('/categories', categoriesRouter);
+app.use('/tags', tagsRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
