@@ -9,7 +9,7 @@ const session = require('express-session')
 const flash = require('connect-flash');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users');
 const loginRouter = require('./routes/login');
 const dashboardRouter = require('./routes/dashboard');
 const categoriesRouter = require('./routes/categories');
@@ -51,12 +51,12 @@ app.use('/', loginRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/categories', categoriesRouter);
 app.use('/tags', tagsRouter);
-app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/structurals', structuralsRouter);
 app.use('/member-positions', memberPositionsRouter);
 app.use('/periode', periodeRouter);
 app.use('/members', membersRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

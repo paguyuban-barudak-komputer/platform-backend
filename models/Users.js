@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 
+const bcrypt = require('bcryptjs')
+
+const HASH_ROUND = 10
+
 const usersScheme = mongoose.Schema({
   name: {
     type: String,
@@ -12,7 +16,8 @@ const usersScheme = mongoose.Schema({
   },
   password: {
     type: String,
-    require: [true, 'Kata sandi harus diisi']
+    require: [true, 'kata sandi harus diisi'],
+    maxlength :[225, "panjang password maksimal 225 karakter"]
   },
   role: {
     type: String,
