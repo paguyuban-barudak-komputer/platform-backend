@@ -7,6 +7,7 @@ var logger = require('morgan');
 const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash');
+var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -19,8 +20,12 @@ const structuralsRouter = require('./routes/structurals');
 const memberPositionsRouter = require('./routes/member-positions');
 const periodeRouter = require('./routes/periode');
 const membersRouter = require('./routes/members');
+const quotesRouter = require('./routes/quotes');
+const achievementsRouter = require('./routes/achievements');
 
 var app = express();
+const URL = `/api/v1`
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,7 +33,7 @@ app.set('view engine', 'ejs');
 
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {maxAge: 60000},
@@ -57,6 +62,18 @@ app.use('/member-positions', memberPositionsRouter);
 app.use('/periode', periodeRouter);
 app.use('/members', membersRouter);
 app.use('/users', usersRouter);
+app.use('/quotes', quotesRouter);
+app.use('/achievements', achievementsRouter);
+
+// API
+app.use(`${URL}/members`, membersRouter);
+app.use(`${URL}/structurals`, structuralsRouter);
+app.use(`${URL}/quotes`, quotesRouter);
+app.use(`${URL}/posts`, postsRouter);
+app.use(`${URL}/periode`, periodeRouter);
+app.use(`${URL}/tags`, tagsRouter);
+app.use(`${URL}/categories`, categoriesRouter);
+app.use(`${URL}/achievements`, achievementsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
