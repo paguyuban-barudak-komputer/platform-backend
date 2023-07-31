@@ -33,7 +33,9 @@ npm-debug.log
 
 .env
 
+# VScode
 .vscode
 
-public/members/*
+# Assets
 public/thumbnails/*
+public/members/*
