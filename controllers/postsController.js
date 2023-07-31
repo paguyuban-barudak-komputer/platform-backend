@@ -216,4 +216,31 @@ module.exports = {
       res.redirect("/posts");
     }
   },
+
+  // API Controller
+  indexAPI: async (req, res) => {
+    try {
+      const posts = await Posts.find().sort({'_id':-1}).populate("categoryId")
+
+      res.status(200).json({ data: posts })
+    } catch (err) {
+      res.status(500).json({ message: err.message || `Internal server error` })
+    }
+  },
+
+  detailAPI: async (req, res) => {
+    try {
+      const { slug } = req.params
+      const post = await Posts.findOne({ slug: slug }).populate('tagId')
+
+      if (!post) {
+        return res.status(404).json({ message: "Artikel tidak ditemukan.!" })
+      }
+
+      res.status(200).json(post)
+
+    } catch (err) {
+      res.status(500).json({ message: err.message || `Internal server error` })
+    }
+  },
 };

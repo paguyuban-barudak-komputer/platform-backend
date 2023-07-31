@@ -13,4 +13,8 @@ router.post("/store", multer({ dest: os.tmpdir() }).single('photo'), membersCont
 router.put("/:id/update", multer({ dest: os.tmpdir() }).single('photo'), membersController.update);
 router.delete("/:id", membersController.destroy);
 
+// API
+router.get("/index", membersController.indexAPI);
+router.get("/active", membersController.activeMemberAPI);
+
 module.exports = router;

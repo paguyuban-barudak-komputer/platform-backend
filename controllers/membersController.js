@@ -236,4 +236,26 @@ module.exports = {
       res.redirect("/members");
     }
   },
+
+  // API Controller
+  indexAPI: async (req, res) => {
+    try {
+      const members = await Members.find().populate("memberPositionId structuralId periodeId")
+
+      res.status(200).json({ data: members })
+    } catch (err) {
+      res.status(500).json({ message: err.message || `Internal server error` })
+    }
+  },
+
+  activeMemberAPI: async (req, res) => {
+    try {
+      const periode = await Periode.find().sort({'_id':-1}).limit(1)
+      const members = await Members.find({periodeId: periode[0]._id}).populate("memberPositionId structuralId")
+
+      res.status(200).json({ data: members })
+    } catch (err) {
+      res.status(500).json({ message: err.message || `Internal server error` })
+    }
+  },
 };

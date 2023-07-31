@@ -13,4 +13,8 @@ router.post("/store", multer({ dest: os.tmpdir() }).single('thumbnail'), postsCo
 router.put("/:id/update", multer({ dest: os.tmpdir() }).single('thumbnail'), postsController.update);
 router.delete("/:id", postsController.destroy);
 
+// API
+router.get("/index", postsController.indexAPI);
+router.get('/detail/:slug', postsController.detailAPI);
+
 module.exports = router;

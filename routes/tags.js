@@ -11,4 +11,7 @@ router.post("/store", tagsController.store);
 router.put("/:id/update", tagsController.update);
 router.delete("/:id", tagsController.destroy);
 
+// API
+router.get("/index", tagsController.indexAPI);
+
 module.exports = router;
