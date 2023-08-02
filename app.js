@@ -22,6 +22,7 @@ const periodeRouter = require('./routes/periode');
 const membersRouter = require('./routes/members');
 const quotesRouter = require('./routes/quotes');
 const achievementsRouter = require('./routes/achievements');
+const settingsRouter = require('./routes/settings');
 
 var app = express();
 const URL = `/api/v1`
@@ -64,6 +65,7 @@ app.use('/members', membersRouter);
 app.use('/users', usersRouter);
 app.use('/quotes', quotesRouter);
 app.use('/achievements', achievementsRouter);
+app.use('/settings', settingsRouter);
 
 // API
 app.use(`${URL}/members`, membersRouter);
@@ -74,6 +76,7 @@ app.use(`${URL}/periode`, periodeRouter);
 app.use(`${URL}/tags`, tagsRouter);
 app.use(`${URL}/categories`, categoriesRouter);
 app.use(`${URL}/achievements`, achievementsRouter);
+app.use(`${URL}/settings`, settingsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
