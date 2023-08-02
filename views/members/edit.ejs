@@ -12,8 +12,13 @@
                             <label for="photo">Foto</label>
                         </div>
                         <div class="col-md-8 form-group">
-                            <img src="/members/<%= member.photo %>"
-                            class="img-fluid mb-3" alt="<%= member.photo %>" width="200">
+                            <% if(member.photo == "avatar.png"){ %>
+                                <img src="/assets/static/images/faces/avatar.png"
+                                    alt="avatar.png" class="img-fluid" width="200">
+                            <% } else { %>
+                                <img src="/members/<%= member.photo %>"
+                                class="img-fluid mb-3" alt="<%= member.photo %>" width="200">
+                            <% } %>
                             <input type="file" id="photo"
                                 class="form-control" name="photo" />
                             <p>
@@ -105,7 +110,7 @@
                                 <option value="">-- Pilih --</option>
                                 <% memberPositions.forEach((memberPosition, index) => { %>
                                     <option value="<%= memberPosition._id %>"
-                                            <% if(member.memberPositionId._id && memberPosition._id) { %>
+                                            <% if(member.memberPositionId._id.toString() == memberPosition._id.toString()) { %>
                                                 selected
                                             <% } %>
                                         ><%= memberPosition.name %></option>
@@ -121,7 +126,7 @@
                                 <option value="">-- Pilih --</option>
                                 <% structurals.forEach((structural, index) => { %>
                                     <option value="<%= structural._id %>"
-                                            <% if(member.structuralId._id && structural._id) { %>
+                                            <% if(member.structuralId._id.toString() == structural._id.toString()) { %>
                                                 selected
                                             <% } %>
                                         ><%= structural.name %></option>
@@ -137,7 +142,7 @@
                                 <option value="">-- Pilih --</option>
                                 <% periode.forEach((p, index) => { %>
                                     <option value="<%= p._id %>"
-                                            <% if(member.periodeId._id && p._id) { %>
+                                            <% if(member.periodeId._id.toString() == p._id.toString()) { %>
                                                 selected
                                             <% } %>
                                         ><%= p.periode_year %></option>
