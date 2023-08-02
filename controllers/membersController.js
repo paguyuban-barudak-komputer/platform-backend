@@ -262,8 +262,33 @@ module.exports = {
     
         for (let row of rows){
           let memberPositionId = await MemberPositions.findOne({name: row[8]})
+          if(!memberPositionId) {
+            req.flash("alertMessage", "Jabatan tidak ditemukan");
+            req.flash("alertStatus", "danger");
+            
+            res.redirect("/members");
+
+            return false;
+          }
           let structuralId = await Structurals.findOne({name: row[9]})
+          if(!structuralId) {
+            req.flash("alertMessage", "Struktural tidak ditemukan");
+            req.flash("alertStatus", "danger");
+            
+            res.redirect("/members");
+
+            return false;
+          }
+
           let periodeId = await Periode.findOne({periode_year: row[10]})
+          if(periodeId == undefined) {
+            req.flash("alertMessage", "Periode tidak ditemukan");
+            req.flash("alertStatus", "danger");
+
+            res.redirect("/members");
+
+            return false;
+          }
 
           let member = {
                 nim: row[0],
@@ -281,32 +306,6 @@ module.exports = {
 
           members.push(member);
         }
-
-        // rows.forEach((row) => {
-        //   let member = {
-        //     nim: row[0],
-        //     name: row[1],
-        //     email: row[2],
-        //     classes: row[3],
-        //     gender: row[4],
-        //     phone: row[5],
-        //     address: row[6],
-        //     instagram: row[7],
-        //     memberPositionId: await MemberPositions.findOne({name: row[8]}),
-        //     structuralId: Structurals.findOne({name: row[9]})._id,
-        //     periodeId: Periode.findOne({periode_year: row[10]})._id,
-        //   };
-    
-        //   members.push(member);
-        // });
-
-        // rows.forEach(async (el, index) => {
-        //   let memberPosition = await MemberPositions.findOne({name: "Ketua Umum"})
-
-        //   members.push(memberPosition)
-        // });
-
-        console.log(members);
     
         try {
           Members.insertMany(members); 
@@ -320,6 +319,8 @@ module.exports = {
           
           res.redirect("/members");
        }
+
+       fs.unlinkSync(pathFile);
       });
     } catch (error) {
         req.flash("alertMessage", `${error.message}`);
