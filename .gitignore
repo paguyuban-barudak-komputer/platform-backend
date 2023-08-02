@@ -40,4 +40,5 @@ npm-debug.log
 public/thumbnails/*
 public/members/*
 public/about/*
+public/uploads/*
 !public/members/avatar.png
