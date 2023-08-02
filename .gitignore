@@ -39,5 +39,4 @@ npm-debug.log
 # Assets
 public/thumbnails/*
 public/members/*
-public/uploads/*
 !public/members/avatar.png
