@@ -20,7 +20,7 @@ module.exports = {
     } catch (err) {
       req.flash('alertMessage', `${err.message}`)
       req.flash('alertStatus', 'danger')
-      res.redirect('/')
+      res.redirect('/secret')
 
     }
   },
@@ -42,23 +42,23 @@ module.exports = {
         } else {
           req.flash("alertMessage", "Kata sandi yang anda inputkan salah")
           req.flash("alertStatus", "danger")
-          res.redirect('/')
+          res.redirect('/secret')
         }
       } else {
         req.flash("alertMessage", "Username yang anda inputkan salah")
         req.flash("alertStatus", "danger")
-        res.redirect('/')
+        res.redirect('/secret')
       }
 
     } catch (err) {
       req.flash("alertMessage", `${err.message}`)
       req.flash("alertStatus", "danger")
-      res.redirect('/')
+      res.redirect('/secret')
     }
   },
 
   logout : (req, res)=>{
     req.session.destroy();
-    res.redirect('/')
+    res.redirect('/secret')
   }
 };
