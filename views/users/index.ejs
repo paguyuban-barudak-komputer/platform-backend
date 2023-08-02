@@ -1,9 +1,6 @@
 <div class="page-heading">
     <section class="section">
         <div class="card">
-            <div class="card-header">
-                <a href="/users/create" class="btn btn-primary">Tambah +</a>
-            </div>
             <div class="card-body">
                
                 <%- include('../partials/message.ejs') %>
@@ -13,7 +10,6 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama</th>
                                 <th>Username</th>
                                 <th>Hak Akses</th>
                                 <th>Dibuat</th>
@@ -25,7 +21,6 @@
                             <% users.forEach((user, index) => { %>
                                <tr>
                                     <td><%= index + 1 %></td>
-                                    <td><%= user.name %></td>
                                     <td><%= user.username %></td>
                                     <td><%= user.role.replaceAll('_', ' ').toUpperCase() %></td>
                                     <td><%= user.createdAt %></td>
@@ -33,8 +28,6 @@
                                     <td>
                                         <a href="/users/<%= user._id %>/edit"
                                             class="btn btn-warning text-white"><i class="bi bi-pencil-fill"></i></a>
-                                            <button class="btn btn-danger delete-confirm" data-action="/users/<%= user._id %>?_method=DELETE"><i class="bi bi-trash3-fill"></i></button>
-                                  
                                     </td>
                                </tr>
                             <% }) %>
