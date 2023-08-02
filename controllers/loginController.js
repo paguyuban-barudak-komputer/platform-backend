@@ -35,8 +35,7 @@ module.exports = {
         if (checkPassword) {
           req.session.user = {
             id: check._id,
-            username: check.username,
-            name: check.name
+            username: check.username
           }
           res.redirect('/dashboard')
         } else {
