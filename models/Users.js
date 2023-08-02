@@ -21,8 +21,7 @@ const usersScheme = mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['super_admin', 'admin'],
-    default: 'admin',
+    enum: ['super_admin', 'ketum', 'sekum', 'medinfo'],
     required: true
   }
 },
