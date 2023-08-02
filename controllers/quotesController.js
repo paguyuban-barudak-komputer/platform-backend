@@ -132,7 +132,7 @@ module.exports = {
   // API Controller
   indexAPI: async (req, res) => {
     try {
-      const quotes = await Quotes.find().populate("memberId memberPositionId periodeId")
+      const quotes = await Quotes.find().sort({'_id':-1}).populate("memberId memberPositionId periodeId")
 
       res.status(200).json({ data: quotes })
     } catch (err) {
