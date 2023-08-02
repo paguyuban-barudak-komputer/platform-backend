@@ -5,6 +5,7 @@ const Periode = require("../models/Periode");
 const path = require('path')
 const fs = require('fs')
 const config = require('../config')
+const readXlsxFile = require("read-excel-file/node");
 
 module.exports = {
     
@@ -234,6 +235,97 @@ module.exports = {
       req.flash("alertStatus", "danger");
 
       res.redirect("/members");
+    }
+  },
+
+  import: async (req, res) => {
+    try {
+        res.render("members/import", {
+            title: "Import Pengurus",
+        });
+    } catch (error) {
+        req.flash("alertMessage", `${error.message}`);
+        req.flash("alertStatus", "danger");
+        
+        res.redirect("/members");
+    }
+  },
+
+  importStore: async (req, res) => {
+    try {
+      const pathFile = path.resolve(config.rootPath, `public/uploads/${req.file.filename}`);
+
+      readXlsxFile(pathFile).then(async (rows) => {
+        rows.shift();
+    
+        let members = [];
+    
+        for (let row of rows){
+          let memberPositionId = await MemberPositions.findOne({name: row[8]})
+          let structuralId = await Structurals.findOne({name: row[9]})
+          let periodeId = await Periode.findOne({periode_year: row[10]})
+
+          let member = {
+                nim: row[0],
+                name: row[1],
+                email: row[2],
+                classes: row[3],
+                gender: row[4],
+                phone: row[5],
+                address: row[6],
+                instagram: row[7],
+                memberPositionId: memberPositionId,
+                structuralId: structuralId,
+                periodeId: periodeId,
+          }
+
+          members.push(member);
+        }
+
+        // rows.forEach((row) => {
+        //   let member = {
+        //     nim: row[0],
+        //     name: row[1],
+        //     email: row[2],
+        //     classes: row[3],
+        //     gender: row[4],
+        //     phone: row[5],
+        //     address: row[6],
+        //     instagram: row[7],
+        //     memberPositionId: await MemberPositions.findOne({name: row[8]}),
+        //     structuralId: Structurals.findOne({name: row[9]})._id,
+        //     periodeId: Periode.findOne({periode_year: row[10]})._id,
+        //   };
+    
+        //   members.push(member);
+        // });
+
+        // rows.forEach(async (el, index) => {
+        //   let memberPosition = await MemberPositions.findOne({name: "Ketua Umum"})
+
+        //   members.push(memberPosition)
+        // });
+
+        console.log(members);
+    
+        try {
+          Members.insertMany(members); 
+
+          req.flash("alertMessage", "Berhasil mengimport data pengurus");
+          req.flash("alertStatus", "success");
+          res.redirect("/members");
+       } catch (e) {
+          req.flash("alertMessage", `${e.message}`);
+          req.flash("alertStatus", "danger");
+          
+          res.redirect("/members");
+       }
+      });
+    } catch (error) {
+        req.flash("alertMessage", `${error.message}`);
+        req.flash("alertStatus", "danger");
+        
+        res.redirect("/members");
     }
   },
 
